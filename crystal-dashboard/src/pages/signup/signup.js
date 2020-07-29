@@ -5,6 +5,7 @@ import { connect, dispatch } from 'react-redux';
 import renderField from 'components/FormInputs/renderField';
 import { createUser } from '../../reducers/signup';
 import { withRouter } from 'react-router-dom';
+const superagent = require('superagent');
 
 require('dotenv').config();
 
@@ -111,11 +112,35 @@ var Signup = props => {
           <button type="submit" className="btn btn-fill btn-info" disabled={submitting}>Submit</button>
         </form>
 
-        <a id="oauth" href="#"><button className="btn btn-fill btn-info" onClick={google}>Login with Google</button></a>    </div>
+        {/* <a id="oauth" href="#"><button className="btn btn-fill btn-info" onClick={google}>Login with Google</button></a>     */}
+        </div>
     </div>
   )
 };
 
+async function google2() {
+  let url = 'https://accounts.google.com/o/oauth2/v2/auth';
+
+  console.log(process.env);
+  let query = {
+    client_id: '444667393820-6rpjjjaepv6lu63oecpe61e6698bd01s.apps.googleusercontent.com',
+    redirect_uri: `${process.env.BACKEND_ROOT}/oauth`,
+    // redirect_uri: 'http://localhost:3000/oauth',
+    scope: 'https://www.googleapis.com/auth/drive.metadata.readonly',
+    state: 'path-through value',
+    include_granted_scopes: 'true',
+    response_type: 'code',
+  }
+
+  let qs = Object.keys(query).map((val) => {
+    return `${val}=` + encodeURIComponent(query[val])
+  }).join('&');
+
+  let formattedURL = `${url}?${qs}`;
+
+  let temp = await superagent.get(formattedURL);
+  console.log('my temp', temp);
+}
 
 function google() {
   let url = 'https://accounts.google.com/o/oauth2/v2/auth';
