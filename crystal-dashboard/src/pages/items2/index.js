@@ -6,6 +6,7 @@ let Tools = ({ match }) => (
   <div className="content">
     <div className="container-fluid">
       <Route path={`/my-items`} component={Items} />
+      <Route path={`/heyneighbor-frontend/my-items`} component={Items} />
     </div>
   </div>
 );
