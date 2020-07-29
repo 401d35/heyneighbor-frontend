@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
-import { BrowserRouter, browserHistory } from 'react-router-dom';
+import { HashRouter, BrowserRouter, browserHistory } from 'react-router-dom';
 import './assets/styles/base.scss';
 import 'sweetalert/dist/sweetalert.css';
 import Main from './pages/Main';
@@ -12,12 +12,16 @@ import NeighborMain from './pages/NeighborMain';
 const store = configureStore();
 const rootElement = document.getElementById('root');
 
+// const hashHistory = createHashHistory({basename:process.env.PUBLIC_URL});
+
 const renderApp = Component => {
   ReactDOM.render(
     <Provider store={store}>
-      <BrowserRouter>
+      {/* <HashRouter basename={process.env.PUBLIC_URL}> */}
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Component />
       </BrowserRouter>
+      {/* </HashRouter> */}
     </Provider>,
     rootElement
 

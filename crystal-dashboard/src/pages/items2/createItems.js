@@ -132,7 +132,7 @@ var CreateItem = (props) => {
             </div>
           </div>
           <div className="footer text-center">
-            <Link to="/my-items" ><button type="submit" className="btn btn-info btn-fill">Submit</button></Link>
+            <button type="submit" className="btn btn-info btn-fill">Submit</button>
           </div>
         </form>
       </div>
