@@ -42,7 +42,7 @@ class Nav extends Component {
             </div>
           </Collapse>
         </li>
-        <li className={this.isPathActive('/reviews') || this.state.reviewMenuOpen ? 'active' : null}>
+        {/* <li className={this.isPathActive('/reviews') || this.state.reviewMenuOpen ? 'active' : null}>
           <a onClick={() => this.setState({ reviewMenuOpen: !this.state.reviewMenuOpen })}
             data-toggle="collapse">
             <i className="pe-7s-news-paper"></i>
@@ -66,7 +66,7 @@ class Nav extends Component {
               </ul>
             </div>
           </Collapse>
-        </li>
+        </li> */}
         <li className={this.isPathActive('/rentals') || this.state.rentalMenuOpen ? 'active' : null}>
           <a onClick={() => this.setState({ rentalMenuOpen: !this.state.rentalMenuOpen })}
             data-toggle="collapse">

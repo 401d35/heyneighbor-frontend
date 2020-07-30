@@ -38,7 +38,7 @@ let LoginForm = props => {
       <div className="header">
         <h4>Log In</h4>
       </div>
-      <div className="content">
+      <div className="content half-form">
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label className="control-label">Username</label>
@@ -60,6 +60,8 @@ let LoginForm = props => {
 
           <button type="submit" className="btn btn-social btn-fill btn-google btn-marg-l" disabled={submitting}>Log in</button>
         </form>
+        <br/><br/><br/>
+        <button className="btn btn-social btn-fill btn-primary btn-marg-l"><Link to="/signup" className="btn-link">Signup</Link></button>
       </div>
     </div>
   )

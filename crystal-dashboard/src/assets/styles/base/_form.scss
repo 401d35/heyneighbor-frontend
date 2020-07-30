@@ -144,3 +144,9 @@ fieldset[disabled] .form-control {
 .input-group-focus .input-group-addon {
   border-color: $dark-gray;
 }
+
+.half-form {
+  width:50%;
+  // margin-left:auto;
+  // margin-right:auto;
+}
