@@ -49,7 +49,7 @@ export default function reducer(state = initialState, {
         ...state, items: [...payload], isLoading: false
       };
     case "ITEM QUERY FAIL":
-      console.log(payload, "Error Message")
+      //console.log(payload, "Error Message")
       return state;
 
     // Get a specific item with ITEMid
@@ -122,9 +122,14 @@ export const getItemSuccess = (item) => ({
   payload: item
 })
 
-export const getUserItems = (ownerID) => ({
-  type: "GET USER ITEMS",
-  payload: ownerID
+// export const getUserItems = (items) => ({
+//   type: "GET USER ITEMS",
+//   payload: items
+// })
+
+export const getUserItems = (items) => ({
+  type: "GET ALL ITEMS SUCCESS",
+  payload: items
 })
 
 export const addNewItem = (newItem) => ({
@@ -151,7 +156,7 @@ export const removeItem = (itemID) => ({
 export function getAllItemsAPI() {
   return function (dispatch) {
     return superagent.get(`${BACKEND_ROOT}/item`).then(data => {
-      console.log('-----data.body----', data.body);
+      //console.log('-----data.body----', data.body);
       dispatch(getAllItemsSuccess(data.body))
     }).catch(err => dispatch(itemQueryFail(err)))
   }
@@ -167,27 +172,30 @@ export function getItemAPI() {
 }
 
 export function getUserItemsAPI(ownerId, token) {
-  console.log('getUserItemsAPI called', `${BACKEND_ROOT}/itemByOwner/${ownerId}`)
+  //console.log('getUserItemsAPI called', `${BACKEND_ROOT}/itemByOwner/${ownerId}`)
   return function (dispatch) {
+    if(ownerId == undefined){
+      return dispatch(getUserItems([]));
+    }
     return superagent.get(`${BACKEND_ROOT}/itemByOwner/${ownerId}`)
       .set({
         'Authorization': `Bearer ${token}`
       })
       .then(data => {
-        console.log('data from getUsersItems', data.body);
-        dispatch(getAllItemsSuccess(data.body));
+        //console.log('data from getUsersItems', data.body);
+        dispatch(getUserItems(data.body));
       }).catch(err => dispatch(itemQueryFail))
   }
 }
 
 export function addNewItemAPI(token,body) {
-  console.log(token, body);
+  //console.log(token, body);
   return function (dispatch) {
     return superagent.post(`${BACKEND_ROOT}/item`)
     .set({'Authorization': `Bearer ${token}`})
     .send(body)
     .then(data => {
-      console.log(data);
+      //console.log(data);
       dispatch(addNewItem(data.body.results))
     }).catch(err => dispatch(itemQueryFail))
   }
@@ -196,7 +204,7 @@ export function addNewItemAPI(token,body) {
 export function updateItemAPI() {
   return function (dispatch) {
     return superagent.put(`${BACKEND_ROOT}/item/:ITEMid`).then(data => {
-      console.log(data)
+      //console.log(data)
       dispatch(updateItem(data.body.results))
     }).catch(err => dispatch(itemQueryFail))
   }
@@ -205,7 +213,7 @@ export function updateItemAPI() {
 export function removeItemAPI() {
   return function (dispatch) {
     return superagent.delete(`${BACKEND_ROOT}/item/:ITEMid`).then(data => {
-      console.log(data)
+      //console.log(data)
       dispatch(removeItem(data.body.results))
     }).catch(err => dispatch(itemQueryFail))
   }
@@ -214,8 +222,8 @@ export function removeItemAPI() {
 export const getRemoteData = (endpoint) => dispatch => {
   return superagent.get(`${BACKEND_ROOT}/${endpoint}`)
     .then(data => {
-      console.log("Needs implimentation");
-      console.log(data);
+      //console.log("Needs implimentation");
+      //console.log(data);
       // dispatch(getAction(data.body.results));
     })
 }

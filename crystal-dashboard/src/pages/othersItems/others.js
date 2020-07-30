@@ -5,6 +5,12 @@ import { rentalCreate } from '../../reducers/rental.js';
 import { Link } from 'react-router-dom';
 
 let Others = props => {
+
+  const addDefaultImg = (ev) =>{
+    ev.target.src = require("../../assets/images/defaultTool.jpg");
+    ev.target.onError = null;
+  }
+
   // getting all items
   useEffect(() => { props.getAllItems() }, []);
   console.log('others props', props);
@@ -21,11 +27,11 @@ let Others = props => {
                 <div className="row">
                   {props.items.items.map((item) => {
                     if (item._owner !== props.ownerId) {
-                      console.log('item', item);
+                      // console.log('item', item);
                       return (
                         <div key={item._id}>
                           <h3>{item.item}</h3>
-                          <img src={item.image} alt="item" class="imageSize"/>
+                          <img src={item.image} alt="item" className="imageSize" onError={addDefaultImg}/>
                           <p>{item.type}
                           <Link to="/rentals/borrowed">
                             <button
